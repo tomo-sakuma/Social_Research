@@ -1,0 +1,19 @@
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@300;600&family=IBM+Plex+Sans:ital,wght@0,300;0,600;1,300;1,600&family=JetBrains+Mono:ital,wght@0,300;0,600;1,300;1,600&family=Jost:ital,wght@0,300;0,600;1,300;1,600&display=swap');
+
+@font-face {
+  /*フォントの名前*/
+  font-family: "VictorMono";
+  /*フォントファイルへのパス（複数指定の場合、上から順に読み込まれる）*/
+  src: url("resource/VictorMono-Regular.woff2") format("woff2"),
+       url("resource/VictorMono-Oblique.woff2") format("woff2");
+}
+
+// fonts
+$font-family-sans-serif: 'Graphik', -apple-system, 'BlinkMacSystemFont', 'Jost','Hiragino Sans', 'IBM Plex Sans JP', sans-serif !default;
+$font-family-monospace: 'VictorMono','JetBrains Mono', monospace !default;
+
+$link-color: #1b89ab;
+$code-block-font-size: 0.75em;
+/*-- scss:rules --*/

@@ -1,0 +1,279 @@
+---
+title: "4 データを要約する"
+---
+
+```{r}
+#| message: false
+#| warning: false
+#パッケージの読み込み
+library(tidyverse) #様々な機能の統合パッケージ
+library(magrittr) #コードを見やすくする
+library(stargazer)
+library(gtsummary)
+```
+
+# データを要約する
+
+膨大なデータの特徴を捉えるためには，代表的な値を使うといいです。
+
+ここからは基本的に比例尺度を想定して
+
+$$X_i = X_1, X_2,...X_n$$ とします。
+
+## 平均値
+
+データに含まれる値をすべて足してデータの数で割った値。$\bar X$ とすると。
+
+$$ \bar X = (X_1 + X_2 + ... X_n )/n = \frac{1}{n} \Sigma_{i=1}^{n} X_i $$
+
+平均値は，統計的推測に際して重要な性質を持っていますが，データの真ん中を表しているわけではないことに注意が必要です。
+
+```{r}
+data3_1 <- c(100,90,80,70,60,40,10) #<1>
+xbar <- mean(data3_1) 
+xbar
+
+#これは以下でも同じ
+xbar2 = sum(data3_1) / length(data3_1) #<2>
+xbar2
+```
+
+1.  データを作成して，`data3_1`という名前で保存
+2.  `sum()` は()内で指定したデータを合計する関数，`length()` はデータの数（行数）を吐き出す関数。`data3_1`は7行なので7が吐き出される。
+
+## 中央値
+
+データを順番に並べてちょうど真ん中の値。
+
+```{r}
+median(data3_1)
+```
+
+平均値と中央値はそれぞれデータの代表的な値ではありますが，必ずしも一致しません。例えば以下のようなデータがあったとします。
+
+```{r}
+x <- c(10, 10, 10, 10, 10, 10, 10, 20, 20, 30, 90, 100)
+```
+
+平均と中央値はそれぞれ違います。
+
+```{r}
+mean(x)
+median(x)
+```
+
+```{r}
+#| echo: false
+#| message: false
+library(showtext)
+font_add_google("Noto Sans JP","jp") 
+showtext_auto()
+
+x %>% 
+  as_tibble() %>% 
+  ggplot(aes(x)) + 
+  geom_histogram(breaks = seq(5,105,10)) +
+  geom_vline(xintercept = mean(x),show.legend= TRUE,colour = "red") +
+  geom_vline(xintercept = median(x),colour = "blue") +
+  scale_x_continuous(breaks=seq(0,100,10)) +
+  labs(title = "平均(赤)と中心値(青)が一致しない例")+
+  theme(plot.title = element_text(family = "jp")) +
+  annotate(geom = "text",
+           x = 95, y = 4,  # テキストの中心座標位置
+           label = "平均27.5
+中央値10",
+           size = 5,
+           family = "jp")
+```
+
+一致する場合もあります。
+
+```{r}
+#| echo: false
+
+x <- c(0, 10, 20, 20, 30, 30, 30, 40, 40, 40, 40,
+       50,50,50,50,50,60,60,60,60,70,70,70,80,80, 
+       90,100)
+as_tibble(x)
+x %>% 
+  as_tibble() %>% 
+  ggplot(aes(x)) + 
+  geom_histogram(breaks = seq(-5,105,10)) +
+  geom_vline(xintercept = mean(x),show.legend= TRUE,colour = "red") +
+  geom_vline(xintercept = median(x),colour = "blue") +
+  scale_x_continuous(breaks=seq(0,100,10)) +
+  labs(title = "平均(赤)と中心値(青)が一致する例")+
+  theme(plot.title = element_text(family = "jp")) +
+  annotate(geom = "text",
+           x = 95, y = 4,  # テキストの中心座標位置
+           label = "平均50
+  中央値50",
+           size = 5,
+           family = "jp")
+
+```
+
+## 最大値・最小値
+
+そのまま，最大の値と最小の値
+
+```{r}
+max(data3_1)
+min(data3_1)
+```
+
+## 分散
+
+データのばらつき度合いを表します。例えば，A, Bという２つのクラスがあるとします。ある教科のテストの平均，中央値が両クラスとも60だったとしても，
+
+A.  20,60,100,30,90
+B.  60,60,60,60,60
+
+というように特典の分布が全く異なる場合があり得ます。この違いは平均や中央値だけでは読み取れません。この違いを表す，平均からのばらつき度合いを把握する指標が分散です。
+
+平均からの距離 （$\bar X - X_i$）は，プラスにもマイナスにもなり，足し合わせたら0になってしまうので，これを2乗した$(\bar X - X_i)^2$をデータの数だけ足し合わせて，データの数で割ったものを分散とします。
+
+$$
+\text{分散} = \frac{1}{n} \Sigma_{i = 1}^n(\bar X - X_i)^2
+$$
+
+```{r}
+data3_2a <- c(20,60,100,30,90)
+data3_2b <- c(60,60,60,60,60)
+
+meana <- mean(data3_2a)
+sa <- meana -　data3_2a
+sua <- sum(sa^2) 
+分散a <- sua / length(data3_2a) #<1>
+
+分散b = sum((mean(data3_2b) - data3_2b)^2)/length(data3_2b)
+
+分散a
+分散b
+```
+
+1.  こんなふうに変数名は日本語でも大丈夫ですが，全角半角の切り替えが面倒くさかったり，ミスの元なのであまりやらない方がいいと思います。
+
+Aの分散は1000，Bの分散は0。
+
+## 標準偏差
+
+でも，この数値は何を意味しているのかがわからないです。なぜなら，元の点数（100点満点）を2乗しているからです。これをルートを取って元に戻すと，元の数値や平均値と同じ単位になります。分散のルートを取ったものを標準偏差といいます。
+
+$$
+\text{標準偏差} = \sqrt{\text{分散}}
+$$
+
+```{r}
+標準偏差A <- sqrt(分散a)
+標準偏差A
+```
+
+# データの可視化
+
+名義尺度など，計算が不可能なものを要約し，可視化する方法として，度数分布表とヒストグラムがあります。
+
+## 度数分布表
+
+名義尺度や順序尺度（もしくは範囲を区切った量的変数）ごとに当てはまるサンプルサイズを集計した表です。
+
+```{r}
+#| message: false
+data3 <- read_csv("data/data3.csv")
+data3
+table(data3$hometown) 
+
+data3 %>% 
+  select(.,hometown) %>% #<1>
+  tbl_summary(., #<2>
+              label = list(hometown ~ ""),
+              sort = list(everything() ~ "frequency")
+              ) %>% 
+  modify_header(label = "")
+```
+
+1.  `select()`でデータの中から出身地(`hometown`)を抜き出し
+2.  `tbl_summary()`でいい感じの表に
+
+## ヒストグラム
+
+特定のカテゴリごとの度数がわかるグラフです。例えばテストの点数なら，特定の範囲にどれぐらいの人がいるかがわかります。
+
+```{r}
+data3 %$% 
+  hist(test,
+       breaks = seq(5,105,10),　#<1>
+       xaxt = "n"　#<2>
+       ) 
+axis(1, at = 10*(0:100))　#<3>
+
+
+
+```
+
+1.  10点ごとの幅に
+2.  自動生成されるラベルを非表示に
+3.  ラベルの指定（０から100まで10刻みに）
+
+`ggplot2`というパッケージ(`tidyverse`に同梱)を使うと以下のように作成できます。この程度の単純な表だとggplotの方がややこしいですが，いろいろカスタマイズするにはこちらの方が良いらしいです。
+
+```{r}
+data3 %$%
+  ggplot(., aes(test)) + #<1>
+  geom_histogram(breaks = seq(5,105,10)) + #<2>
+  scale_x_continuous(breaks=seq(0,100,10))  #<3>
+
+```
+
+1.  x軸の基準を指定
+2.  ヒストグラムを作成（10点刻み）
+3.  ラベルを作成(10点刻み)
+
+例えば，グループごとに色分けする
+
+```{r}
+data3 %<>% mutate(class = as.factor(class))
+
+data3 %>%
+  ggplot(., aes(test, fill = class)) + #<1>
+  geom_histogram(breaks = seq(5,105,10)) + 
+  scale_x_continuous(breaks=seq(0,100,10))
+```
+
+1.  fillで色分けしたいグループを指定
+
+クラスごとに分けて作成
+
+```{r}
+data3 %$%
+  ggplot(., aes(test)) + 
+  geom_histogram(breaks = seq(5,105,10)) + 
+  scale_x_continuous(breaks=seq(0,100,10)) + 
+  facet_grid(~class) #<1>
+
+```
+
+1.  classごとに分けて表示
+
+これだと，平均がどれも60点の3クラスだけど，得点のばらつき度合いが大きく違う，ということがわかりやすいです。
+
+## 箱ひげ図
+
+複数のグループごとの中央値やばらつき度合いを視覚的に表現できます。ここでは，クラスごとのテストの点数の箱ひげ図を書きます。
+
+```{r}
+data3 %$%
+  boxplot(test~class) #<1>
+```
+
+1.  `boxplot()`で箱ひげ図が書ける。()の中は`(表示したい数値 ~ 場合分けしたいカテゴリ変数)`
+
+-   最も外の線は最大値と最小値，箱の上下はそれぞれ75％点と25％点，つまり上下4分の1の点，真ん中の太線は中央値です。
+
+-   クラス2は全員が60点だったので，箱がなく中央値の線だけが記載されています（箱が潰れて線になっているイメージ）
+
+```{r}
+par(family= "jp")
+data3 %$%
+  boxplot(test~gender)
+```

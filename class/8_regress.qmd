@@ -1,0 +1,251 @@
+---
+title: "8 単回帰分析"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| message: false
+#| warning: false
+#| output: false
+rm(list=ls()); gc();  gc(); #<1>
+if (!require("pacman")) install.packages("pacman") #<2>
+pacman::p_load(tidyverse, magrittr,estimatr,car,modelsummary,ggrepel,patchwork) #<3>
+
+```
+
+1.  前の作業など，rのメモリに入っているものをリセットするコマンド
+2.  パッケージ管理用のパッケージである`pacman`が入っていない場合はインストール
+3.  複数のパッケージを一度に呼び出す
+
+データの読み込み
+
+```{r}
+#| message: false
+
+ice4_1 <- read_csv("data/ice4_1.csv")
+ice4_1
+```
+
+気温は`kion`，客数は`kyaku`という名前になっていることを確認します。
+
+その上でまず，データの散布図と，それにフィットする直線を書いてみます。
+
+```{r}
+#| message: false
+
+
+g <- ggplot(data = ice4_1, #<1>
+            aes(x = kion, y = kyaku) #<2>
+            ) %>% 
+  + geom_point() %>% #<3>
+  + geom_smooth(method = "lm",se=FALSE) #<4>
+
+plot(g)
+```
+
+1.  使うデータを指定
+2.  x軸とy軸を指定
+3.  散布図を作成
+4.  散布図にフィットする直線を書く。方法は，線形モデル(`lm`)
+
+これは，自動で線が引かれていますが，例えばこんな線もあり得そうでもあります。
+
+```{r}
+#| message: false
+#| code-fold: true
+
+g <- ggplot(data = ice4_1, #使うデータを指定
+            aes(x = kion, y = kyaku) #x軸とy軸を指定
+            ) %>% 
+  + geom_point() %>% #散布図を作成
+  + geom_smooth(method = "lm",se=FALSE) %>% 
+  + geom_hline(aes(yintercept=320),
+               color = "salmon") %>% #<1>
+  + geom_abline(intercept = 150, slope = 5,
+                color = "yellowgreen")#<2>
+
+#散布図にフィットする直線を書く。方法は，線形モデル(lm)
+plot(g)
+```
+
+1.  高さ320の水平線
+2.  傾き5，切片150の直線
+
+じゃあ，どんな線が最も良い線なのか，それを決めて線を引く，というか線の式を求めるのが回帰分析です。
+
+# 回帰分析？
+
+回帰分析では，最小二乗法という方法で計算します。この方法の考え方は
+
+::: boxbox
+直線と各データの誤差を最小にする線が最も良い線であろう
+:::
+
+というものです。
+
+これは，他の図で矢印になっている誤差を全部足したらしたらゼロになる点を探すことを意味します。±打ち消し合うので $E(u)=0$ が理想です。
+
+![](images/Untitled%202.png)
+
+アイス屋さんにおける気温を$x$,客数を$y$とします。気温とアイスの客数にある一定の傾向があるとは予想できますが，一直線上にビタッと並ぶことはなさそうです。
+
+-   近隣で夏祭りがあったら売り上げは伸びるかもしれません
+-   雨予報が出てたら売り上げは減るかもしれません
+
+このような，気温以外の要因で販売量が増減する部分を誤差$u$とします。すると
+
+$$
+y_i = \beta_0 + \beta_1x_i+u_i
+$$
+
+という直線をイメージしていることになります。ただし添え字の$i$はサンプル（散布図の個々の点）ですff。誤差が最小になるような線を引きたいので，
+
+$$
+u_i = y_i - \beta_0 - \beta_1x_i
+$$
+
+が最小となる切片$\beta_0$と傾き$\beta_1$を探すと良いということです。ということは，絶対としての$u$が一番小さくなる，つまり$|u|=0$が理想的。ただ，絶対値の計算は少し大変なので，それぞれの残差を2乗したものをすべて足しあわせて，それを最小化すれば良い。
+
+-   だから最小二乗法という
+
+## 最小二乗法を解く
+
+数式で表すと
+
+$$
+\sum_{i=1}^n \hat{u}_i^2= \sum_{i=1}^n (y_i -\hat{\beta_0}-\hat{\beta_1}x_1)^2
+$$ {#eq-8-1}
+
+が最も小さくなる$\beta_0$と$\beta_1$を求めれば良い。2次関数の最小値問題。微分して0，とすると計算しやすいので，$\beta_0$と$\beta_1$をそれそれ微分[^1]して
+
+[^1]: バラバラにして微分してまとめ直してもできますが，合成関数の微分の考え方を知ってると即座に計算できます。
+
+$$
+\begin{equation}\left\{ \,    \begin{aligned}&\frac{\partial \Sigma}{\partial \hat{\beta_0}} = \sum_{i=1}^n (y_i -\hat{\beta_0}-\hat{\beta_1}x_1) = 0 \\&\frac{\partial \Sigma}{\partial \hat{\beta_1}} = \sum_{i=1}^n x_i(y_i -\hat{\beta_0}-\hat{\beta_1}x_1) = 0  \end{aligned}\right.\end{equation}
+$$ {#eq-8-2}
+
+という連立方程式を解けば良い。
+
+::: callout-note
+### ヒント
+
+$\bar{x}=\dfrac{1}{n}\sum_{i=1}^nx_i$とする
+
+1.  $\Sigma^n_{i=1}x_i(x_i-\bar x) = \Sigma^n_{i=1}(x_i-\bar x)(x_i-\bar x)$[^2]
+2.  $\Sigma^n_{i=1}y_i(x_i-\bar x) = \Sigma^n_{i=1}x_i(y_i-\bar y) = \Sigma^n_{i=1}(x_i-\bar x)(y_i-\bar y)$
+:::
+
+[^2]: $$
+    \begin{split}
+    \Sigma^n_{i=1}&x_i(x_i-\bar x)  \\
+    & = \Sigma^n_{i=1} x_i^2 - \bar x \Sigma^n_{i=1} x_i \\
+    & = \Sigma^n_{i=1}x_i^2 - n(\bar x)^2
+    \end{split}
+    $$
+
+    一方で
+
+    $$
+    \begin{split}
+    \Sigma^n_{i=1}&(x_i-\bar x)(x_i-\bar x)  \\
+    & = \Sigma^n_{i=1} (x_i^2 - 2 x_i \bar x +(\bar x)^2) \\
+    & = \Sigma^n_{i=1}x_i^2 -2 \bar x \Sigma^n_{i=1}x_i + (\bar x)^2\\
+    & = \Sigma^n_{i=1}x_i^2 - n(\bar x)^2 \\
+    \end{split}
+    $$
+
+$$
+\begin{equation} 
+\left\{ \,   
+\begin{split}
+&\sum_{i=1}^n (y_i -\hat{\beta_0}-\hat{\beta_1}x_1) = 0  \\
+&\sum_{i=1}^n x_i(y_i -\hat{\beta_0}-\hat{\beta_1}x_1) = 0  
+\end{split}
+\right.
+\end{equation}
+$$ {#eq-8-3}
+
+上の式から
+
+$\begin{split}&\Sigma y_i - n \hat{\beta_0} - \hat{\beta_1}\Sigma x_i = 0 \\\hat{\beta_0} &= \frac{1}{n} (\Sigma y_i - \hat{\beta_1}\Sigma x_i) \\&= \bar{y} - \hat{\beta_1} \bar{x}\end{split}$
+
+下の式に代入
+
+$\begin{split}\Sigma x_i \{y_i - (\bar{y} - \hat{\beta_1}\bar{x}) - \hat{\beta_1}x_i\} &= 0 \\ \Sigma x_i \{(y_i - \bar{y}) - \hat{\beta_1}(x_i - \bar{x})\} &= 0 \\\Sigma x_i (y_i - \bar{y}) - \hat{\beta_1}\Sigma x_i (x_i - \bar{x}) &= 0 \\\end{split}$
+
+ヒントから
+
+$\Sigma (x_i - \bar{x})(y_i - \bar{y}) - \hat{\beta_1}\Sigma (x_i - \bar{x}) (x_i - \bar{x}) = 0$
+
+$$
+\hat{\beta_1} = \dfrac{\Sigma (x_i - \bar{x})(y_i - \bar{y})}{ \Sigma  (x_i - \bar{x})^2} = \dfrac{ x \mbox{と}y\mbox{の共分散}}{ x\mbox{の分散}}
+$$ {#eq-8-4}
+
+$$
+\hat{\beta_0} = \bar{y} - \dfrac{\Sigma (x_i - \bar{x})(y_i - \bar{y})}{ \Sigma  (x_i - \bar{x})^2} \bar{x}
+$$ {#eq-8-5}
+
+# Rでの分析
+
+次に，Rで回帰分析をします。回帰分析は，`lm()`でやります。`()`の中には，`(従属変数 ~ 独立変数, data = データ名)`という内容を書きます。結果は，summary(分析結果)で出ます。また，論文に書くような結果の表は，`modelsummary`パッケージの`msummary`を使うと出力できます。
+
+```{r}
+#| message: false
+
+kekka4_1 <- lm(kyaku ~ kion, data = ice4_1)
+summary(kekka4_1)
+msummary(kekka4_1,
+         gof_omit = "Log.Lik.|AIC|BIC|RMSE",
+         title = "",          # タイトル
+         stars = TRUE)
+
+
+```
+
+# 回帰分析における仮説検定
+
+回帰分析は，未知の母集団における法則性を推定しています。
+
+-   例えば，アイス屋さんの気温と客数の関係を推定した前項の分析は，ある期間（例えば2023年8月）の関係を見ているとします。
+-   しかし，この分析から知りたいのは，2023年の関係だけではなく，もっと一般的な基本と客数の関係です。
+    -   例えば来年以降の8月はどうか，など
+-   ここから，上の回帰分析は，ある月（データの取り方によっては特定の月ではなく一般に）アイスクリーム屋さんにとって気温と客数の関係はどんなものかを母集団としていると考えられます。
+
+少ないデータによって未知の母集団を推定しているので，その推定値は　必ずしも母集団と一致するわけではありません。
+
+そこで，この母集団を推定するにあたっての性能を統計的に検定することが一般的です。
+
+具体的には，係数が0（つまり関係ない）かどうかを平均値の差の検定と同じt検定で検定します。
+
+詳しいことは割愛しますが，帰無仮説を0とおいたt検定の結果が，先ほどの回帰式でいうt valueとして表示されていて，有意確率が Pr(\>\|t\|)として表示されています。
+
+```{r}
+lm(kyaku ~ kion, data = ice4_1) %>% 
+  summary()
+         
+
+```
+
+気温( `kion`）の係数は17.25，有意確率は限りなく0に近い（気温と客数に関係がないとする仮説は99.999）
+
+## 通過テスト
+
+```{r,message=FALSE}
+
+ice4_9 <- read_csv("data/ice1_9.csv")
+
+
+
+lm(gpa ~ exam, data = ice4_9) -> kekka
+
+
+msummary(kekka,
+         gof_omit = "Log.Lik.|AIC|BIC",
+         title = "",          # タイトル
+         stars = TRUE)
+
+# 予測値の作成
+newdata <- tibble(exam = c(400,500,600,700))
+predict(kekka,new = newdata)
+```

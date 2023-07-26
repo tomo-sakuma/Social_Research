@@ -1,0 +1,58 @@
+project:
+  type: website
+
+website:
+  title: "社会調査法"
+  margin-header: |
+    ![](/images/kobe.png)
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - index.qmd
+      - section: "授業"
+        contents:
+          - class/1_intro.qmd
+          - class/2_Rとは.qmd
+          - class/3_method.qmd
+          - class/4_data.qmd
+          - class/5_correlation.qmd
+          - class/6_hyohon.qmd
+          - class/7_kentei.qmd
+          - class/8_regress.qmd
+          - class/11_en_ex.qmd
+          - references.qmd
+
+
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+    date: today
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      light: [flatly,fonts.scss]
+      dark: [darkly,fonts.scss]
+    toc: true
+    toc-title: Contents
+    toc-depth: 3
+    number-sections: true
+    number-depth: 3
+    title-block-banner: true
+    logo: 10_set_en_clearback.png
+    embed-resources: true
+    code-fold: show
+    df-print: paged
+    code-annotations: hover
+
+
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

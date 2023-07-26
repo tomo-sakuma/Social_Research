@@ -1,0 +1,292 @@
+---
+title: 5 クロス集計・相関
+---
+
+# 複数の変数の関係
+
+前回は，1つの変数の様子を表す代表値として平均や中央値，ばらつき（分散・標準偏差）等を扱いました。
+
+今回は，二つの変数の間の関係に関わる内容を扱います。具体的には，二つの変数の状況によって場合分けした表であるクロス集計表や，二つの変数を図示した散布図，二つの変数間の関係の強さを表す相関係数などを学習します。
+
+```{r}
+#| message: false
+#| warning: false
+#| output: false
+rm(list=ls()); gc();  gc(); #<1>
+if (!require("pacman")) install.packages("pacman") #<2>
+pacman::p_load(tidyverse, magrittr,estimatr,car,modelsummary,ggrepel,patchwork) #<3>
+
+```
+
+1.  前の作業など，rのメモリに入っているものをリセットするコマンド
+2.  パッケージ管理用のパッケージである`pacman`が入っていない場合はインストール
+3.  複数のパッケージを一度に呼び出す
+
+統計的分析を行う際に考えるののは，ここの変数（例えば質問項目ひとつひとつ）の平均や分散だけではない。
+
+多くの場合複数の変数の関係を見たくなる。ここでは，複数の変数間の関係についてを表す数値やグラフ・表について扱います。
+
+```{r}
+#| message: false
+
+icedata <- read_csv("data/ice1_1.csv")
+```
+
+## 散布図
+
+二つの変数，例えば気温とアイスクリーム屋さんの客数との関係を知りたい場合，最も単純な図示の方法は，x軸を気温，y軸を客数として，日毎や時間毎のデータを書き込んでいくこと。これを散布図と言います。
+
+　データを読み込んで，散布図を書いています。散布図を書く一番簡単なコマンドは`plot(x軸にしたい変数, y軸にしたい変数)`です。 　
+
+```{r}
+#| message: false
+
+icedata %$%
+  plot(kion,kyaku)
+
+icedata %$%
+  plot(kion,kyaku)
+```
+
+カスタマイズもいくらかできます。
+
+```{r}
+icedata %$%
+  plot(kion,kyaku,
+       pch = 0, cex = 1, col = "blue")
+```
+
+`ggplot2`というパッケージ(tidyverseの中に入っている)を使うと高度にカスタマイズしたグラフが書けます。
+
+```{r}
+a <- ggplot(data = icedata, mapping = aes(kion, kyaku)) %>% #グラフを作成
+    + geom_point() #書く数値を点(point)で書く
+plot(a)
+
+b <- ggplot(data = icedata, mapping = aes(kion, kyaku, label = day)) %>% #グラフを作成
+    + geom_point() %>% #書く数値を点(point)で書く
+    + geom_text_repel() #各点にラベルをつける
+plot(b)
+```
+
+ここで，散布図から視覚的にわかることとして，右肩上がりだと正の関係（片方が高いともう片方も高い），右肩下がりだと負の関係，バラバラに散らばっていると関係がなさそう，ということ。
+
+```{r}
+set.seed(123)
+x_p <- rnorm(100,10,10)
+y_p <- x_p + rnorm(100,10,5)
+
+x <- rnorm(100,10,10)
+y <- rnorm(100,10,10)
+
+x_n <- rnorm(100,10,10)
+y_n <- -x_n - rnorm(100,10,5)
+
+
+plot(x_p,y_p)
+plot(x,y)
+plot(x_n,y_n)
+
+
+
+```
+
+## 相関係数
+
+これを数値で表すのが共分散と相関係数です。共分散は以下のように計算されます。
+
+$$
+Cov_{xy}=\frac{1}{n}\Sigma^n_{i=1}\left( x_i - \bar{x}\right)\left( y_i - \bar{y}\right)
+$$
+
+1.  変数xの値から平均値をひく$\left( x_i - \bar{x}\right)$。yも同様$\left( y_i - \bar{y}\right)$
+2.  両者を掛け合わせる$\left( x_i - \bar{x}\right)\left( y_i - \bar{y}\right)$
+3.  これをデータ1からnまで順番にやって全てを足し合わせる$\Sigma^n_{i=1}\left( x_i - \bar{x}\right)\left( y_i - \bar{y}\right)$
+4.  データのサイズnで割る
+
+Rでは，`cov()`関数で計算できます
+
+```{r}
+cov(x,y)
+cov(x_p,y_p)
+
+```
+
+値が大きいほど関係が強い。ただし，データの単位に依存するので，どれぐらい数字が大きかったら関係が強いと言えるのかはわからない。
+
+そこで，共分散を各変数の標準偏差の積で割って単位に依存しない基準を作る。これを相関係数という
+
+$$
+r = \frac{Cov_{xy}}{SD_xSD_y} = \frac{Cov_{xy}}{\sqrt{\frac{1}{n}\Sigma^n_{i=1}\left( x_i - \bar{x}\right)^2}\sqrt{\frac{1}{n}\Sigma^n_{i=1}\left( y_i - \bar{y}\right)^2}} 
+$$
+
+相関係数rは，-1以上1以下の数値をとります。関係が強いほど-1もしくは1に近くなります。
+
+これで，散布図で見た関係性の違いを数値で表すことができました。
+
+```{r}
+cov(x,y)/(sqrt(var(x))*sqrt(var(y)))
+```
+
+相関係数(correlation)は，`cor()`関数でできます。
+
+::: columns
+::: {.column width="33%"}
+```{r}
+cor(x_p,y_p)
+
+```
+
+```{r}
+#| echo: false
+
+
+
+ggplot(mapping = aes(x_p,y_p)) %>% #グラフを作成
+  + geom_point() %>% #書く数値を点(point)で書く
+  + theme(aspect.ratio = 1) %>% 
+  plot()
+
+```
+:::
+
+::: {.column width="33%"}
+```{r}
+cor(x,y)
+
+```
+
+```{r}
+#| echo: false
+
+ggplot(mapping = aes(x,y)) %>% #グラフを作成
+  + geom_point() %>% #書く数値を点(point)で書く
+  + theme(aspect.ratio = 1) %>% 
+  plot()
+```
+:::
+
+::: {.column width="33%"}
+```{r}
+cor(x_n,y_n)
+
+```
+
+```{r}
+#| echo: false
+
+ggplot(mapping = aes(x_n,y_n)) %>% #グラフを作成
+  + geom_point() %>% #書く数値を点(point)で書く
+  + theme(aspect.ratio = 1) %>% 
+  plot()
+
+
+```
+:::
+:::
+
+## 相関行列
+
+複数の変数のペア毎の相関係数を行列形式で表示するもの。
+
+```{r}
+data.frame(x_p,y_p,x,y,x_n,y_n) |> #<1>
+  datasummary_correlation() #<2>
+
+
+```
+
+1.  先程まで使っていたデータを一つに繋げて`data.frame`形式にして
+2.  コマンド`datasummary_correlation()`で相関行列を出力（`modelsummary`パッケージの一部）
+
+```{r}
+#| message: false
+anscombe # Rの組み込みパッケージ datasets によりアンスコムの例のデータが利用できます
+anscombe_long <- 
+  anscombe |> 
+  tidyr::pivot_longer(
+    tidyselect::everything(),
+    names_to = c(".value", "set"),
+    names_pattern = "(.)(.)")
+course_colors <- c("#364968", "#fddf97", "#e09664", "#6c4343", "#ffffff")
+
+
+anscombe_long # アンスコムデータを縦長の形にしたもの
+# 記述統計量（平均と分散）の算出
+# setがデータセットの種類を示します
+# set間で値に大きな差はありません
+# 相関係数も小数点第二位まではset間で同じ値となります
+anscombe_long |> 
+  group_by(set) |> 
+  summarise(across(.cols = c(x, y), .fns = list(mean = mean, sd = sd)),
+            .groups = "keep") |> 
+  summarise(across(.cols = contains("_"), .fns = ~ round(.x, digits = 2))) |> 
+  left_join(
+    anscombe_long |> 
+      group_by(set) |> 
+      group_modify(~ tibble::tibble(cor = cor.test(.x$x, .x$y)$estimate)) |> 
+      ungroup() |> 
+      mutate(cor = round(cor, digits = 2)),
+    by = "set")
+
+anscombe_long |> 
+  group_by(set) |> 
+  group_map(
+    ~ ggplot(.x, aes(x, y)) +
+      geom_point(color = course_colors[1]) +
+      geom_smooth(method = lm, 
+                  se = FALSE, 
+                  color = course_colors[2])) |> 
+  wrap_plots(ncol = 4)
+# ggsave(here("images/anscombes_quartet.png"),
+#        width = 7,
+#        height = 2.2)
+
+```
+
+## 実習
+
+データ`ice2_5.csv`には以下の変数が入っています。
+
+shop
+
+:   お店のid番号
+
+kyori
+
+:   駅からの距離
+
+kyaku
+
+:   1日の客数
+
+このデータから，客数と駅からの距離の
+
+1.  散布図を書いてください
+2.  相関係数を計算してください
+3.  相関係数から読み取れることを説明してください
+
+1.2はコードをそのまま記入してください。3は文章で説明してください。
+
+### データの読み込み
+
+```{r}
+#| message: false
+
+icedata2 <- read_csv("data/ice2_5.csv") 
+
+
+```
+
+### 散布図の作成(前回の復習)
+
+`plot()`関数を使った一番簡単な散布図です
+
+```{r}
+
+icedata2 %$%
+  plot(kyori, kyaku)
+
+```
+
+## 
