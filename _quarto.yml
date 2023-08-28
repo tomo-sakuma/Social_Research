@@ -30,9 +30,13 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - href: class/index.qmd
+        text: Class
     date: today
 
 bibliography: references.bib
+csl: https://www.zotero.org/styles/the-accounting-review
+
 
 format:
   html:
@@ -52,8 +56,6 @@ format:
     code-annotations: hover
 
 
-  pdf:
-    documentclass: scrreprt
 
 editor: visual
 

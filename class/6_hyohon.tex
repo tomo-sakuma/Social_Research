@@ -195,6 +195,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
+  pdftitle={6 母集団と標本},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -202,17 +203,16 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
+\title{6 母集団と標本}
 \author{}
 \date{}
 
 \begin{document}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, interior hidden, enhanced, sharp corners, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, breakable]}{\end{tcolorbox}}\fi
-
-\hypertarget{ux6bcdux96c6ux56e3ux3068ux6a19ux672c}{%
-\section{母集団と標本}\label{ux6bcdux96c6ux56e3ux3068ux6a19ux672c}}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced, frame hidden, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \hypertarget{ux306fux3058ux3081ux306b}{%
-\section{はじめに}\label{ux306fux3058ux3081ux306b}}
+\chapter{はじめに}\label{ux306fux3058ux3081ux306b}}
 
 \begin{itemize}
 \item
@@ -244,7 +244,9 @@
   ここで，知りたい対象を\textbf{母集団}，検証に使う母集団の一部を\textbf{標本}と言います。
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, colback=white, left=2mm, leftrule=.75mm, opacitybacktitle=0.6, breakable, arc=.35mm, rightrule=.15mm, titlerule=0mm, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, opacityback=0, coltitle=black, toptitle=1mm, toprule=.15mm]
+\includegraphics{images/Untitled-01.png}
+
+\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, left=2mm, breakable, opacityback=0, arc=.35mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, opacitybacktitle=0.6, colback=white, colbacktitle=quarto-callout-note-color!10!white, toprule=.15mm, bottomtitle=1mm, toptitle=1mm, leftrule=.75mm, titlerule=0mm, coltitle=black, bottomrule=.15mm]
 
 特に経済学などでは，上記1つ目の例のように日本人全体，といった特定の母集団を想定しないことが多いとされます(星野ほか
 2023; 高橋
@@ -262,7 +264,7 @@
 まずは，理想的な状況における推測について扱います。
 
 \hypertarget{ux5e73ux5747ux3068ux5206ux6563ux5fa9ux7fd2ux3b1}{%
-\section{平均と分散（復習+α）}\label{ux5e73ux5747ux3068ux5206ux6563ux5fa9ux7fd2ux3b1}}
+\chapter{平均と分散（復習+α）}\label{ux5e73ux5747ux3068ux5206ux6563ux5fa9ux7fd2ux3b1}}
 
 \begin{itemize}
 \tightlist
@@ -287,14 +289,14 @@ s_X^2 &= \frac{1}{n-1}\{(X_1 - \bar X)^2+(X_2 - \bar X)^2+(X_3 - \bar X)^2+...(X
 \end{split}
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, arc=.35mm, colframe=quarto-callout-caution-color-frame, bottomrule=.15mm, colback=white, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-caution-color-frame, left=2mm, breakable, colback=white, opacityback=0, toprule=.15mm, rightrule=.15mm, leftrule=.75mm, arc=.35mm, bottomrule=.15mm]
 
 前回と違って，\(n-1\)で割っています。前回のものを標本分散，今回のものを不偏分散と言います。標本を使って母集団の分散を推定する際には，不偏分散の方が良い（より正確になる）ためです。
 
 \end{tcolorbox}
 
 \hypertarget{ux6a19ux672cux5e73ux5747ux306eux6027ux8cea}{%
-\section{標本平均の性質}\label{ux6a19ux672cux5e73ux5747ux306eux6027ux8cea}}
+\chapter{標本平均の性質}\label{ux6a19ux672cux5e73ux5747ux306eux6027ux8cea}}
 
 \begin{itemize}
 \item
@@ -345,7 +347,7 @@ X_i = \mu+u_i, u_i  \sim N(0,\sigma ^2)
 \end{description}
 
 \hypertarget{ux5927ux6570ux306eux6cd5ux5247ux306eux30b7ux30dfux30e5ux30ecux30fcux30b7ux30e7ux30f3}{%
-\subsection{大数の法則のシミュレーション}\label{ux5927ux6570ux306eux6cd5ux5247ux306eux30b7ux30dfux30e5ux30ecux30fcux30b7ux30e7ux30f3}}
+\section{大数の法則のシミュレーション}\label{ux5927ux6570ux306eux6cd5ux5247ux306eux30b7ux30dfux30e5ux30ecux30fcux30b7ux30e7ux30f3}}
 
 サイコロには１から6までの目があり，それぞれが出る確率は1/6です。したがって，母集団の平均は，
 
@@ -363,7 +365,7 @@ X_i = \mu+u_i, u_i  \sim N(0,\sigma ^2)
 \end{Shaded}
 
 \begin{verbatim}
-[1] 2.6
+[1] 3.7
 \end{verbatim}
 
 1行目の
@@ -381,7 +383,7 @@ X_i = \mu+u_i, u_i  \sim N(0,\sigma ^2)
 \end{Shaded}
 
 \begin{verbatim}
-[1] 3.462
+[1] 3.545
 \end{verbatim}
 
 （無作為抽出しているので，結果は個々人で違うと思いますが）おそらく10回の時よりも1,000回の時の方が期待値である3.5に近いはずです。
@@ -403,7 +405,7 @@ X_i = \mu+u_i, u_i  \sim N(0,\sigma ^2)
 
 \begin{verbatim}
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  1.600   3.100   3.500   3.523   3.900   5.200 
+  1.900   3.100   3.500   3.502   3.900   5.300 
 \end{verbatim}
 
 \begin{itemize}
@@ -451,7 +453,7 @@ X_i = \mu+u_i, u_i  \sim N(0,\sigma ^2)
 
 \begin{verbatim}
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  3.438   3.489   3.500   3.501   3.512   3.566 
+  3.435   3.489   3.500   3.500   3.511   3.556 
 \end{verbatim}
 
 すると，最小値3.450，最大値3.553，平均値3.449と，3.5にかなり収束しました。
@@ -509,7 +511,7 @@ X_i = \mu+u_i, u_i  \sim N(0,\sigma ^2)
 サンプルサイズ100のものも加えてヒストグラムを書きました。一回一回のサンプルサイズが大きいほど，母平均に近い値を取っていることが見えます。
 
 \hypertarget{ux6a19ux672cux5206ux6563ux306eux6027ux8cea}{%
-\section{標本分散の性質}\label{ux6a19ux672cux5206ux6563ux306eux6027ux8cea}}
+\chapter{標本分散の性質}\label{ux6a19ux672cux5206ux6563ux306eux6027ux8cea}}
 
 標本分散や標準偏差についても大数の法則が成立します
 

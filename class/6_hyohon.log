@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.1.18)  20 JUL 2023 16:08
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.1.18)  2 AUG 2023 14:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -900,47 +900,47 @@ File: bkm-dvipdfm.def 2019/12/03 v1.28 bookmark driver for dvipdfm (HO)
 )) (/usr/local/texlive/2020/texmf-dist/tex/latex/xurl/xurl.sty
 Package: xurl 2020/01/24 v 0.09 modify URL breaks
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 203.
+Package hyperref Info: Option `colorlinks' set `true' on input line 204.
 No file 6_hyohon.aux.
 \openout1 = `6_hyohon.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 208.
-LaTeX Font Info:    ... okay on input line 208.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 208.
-LaTeX Font Info:    ... okay on input line 208.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 208.
-LaTeX Font Info:    ... okay on input line 208.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 208.
-LaTeX Font Info:    ... okay on input line 208.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 208.
-LaTeX Font Info:    ... okay on input line 208.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 208.
-LaTeX Font Info:    ... okay on input line 208.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 208.
-LaTeX Font Info:    ... okay on input line 208.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 208.
-LaTeX Font Info:    ... okay on input line 208.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 208.
-LaTeX Font Info:    ... okay on input line 208.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 208.
-LaTeX Font Info:    ... okay on input line 208.
-Package scrbase Info: activating english \contentsname on input line 208.
-Package scrbase Info: activating english \listfigurename on input line 208.
-Package scrbase Info: activating english \listtablename on input line 208.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 210.
+LaTeX Font Info:    ... okay on input line 210.
+Package scrbase Info: activating english \contentsname on input line 210.
+Package scrbase Info: activating english \listfigurename on input line 210.
+Package scrbase Info: activating english \listtablename on input line 210.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmr/m/n --> TU/lmr/m/n on input line 208.
+(Font)                  OT1/lmr/m/n --> TU/lmr/m/n on input line 210.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> TU/lmr/m/it on input line 208.
+(Font)                  OT1/lmr/m/it --> TU/lmr/m/it on input line 210.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> TU/lmr/bx/n on input line 208.
+(Font)                  OT1/lmr/bx/n --> TU/lmr/bx/n on input line 210.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 208.
+(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 210.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> TU/lmss/bx/n on input line 208.
+(Font)                  OT1/lmss/bx/n --> TU/lmss/bx/n on input line 210.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 208.
+(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 210.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/bx/n on input line 208.
+(Font)                  OT1/lmtt/m/n --> TU/lmtt/bx/n on input line 210.
 
 Package fontspec Info: latinmodern-math scale = 0.9999967668407183.
 
@@ -969,7 +969,7 @@ pt=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(0)/m/n' will be
-(Font)              scaled to size 10.95pt on input line 208.
+(Font)              scaled to size 10.95pt on input line 210.
 
 Package fontspec Info: latinmodern-math scale = 0.9999967668407183.
 
@@ -1008,18 +1008,18 @@ pt=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.95pt on input line 208.
+(Font)              scaled to size 10.95pt on input line 210.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 208.
+(Font)              `operators' in the math version `normal' on input line 210.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/lmr/m/n --> TU/latinmodern-math.otf(1)/m/n on input
- line 208.
+ line 210.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 208.
+(Font)              `operators' in the math version `bold' on input line 210.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/lmr/bx/n --> TU/latinmodern-math.otf(1)/b/n on inpu
-t line 208.
+t line 210.
 
 Package fontspec Info: latinmodern-math scale = 0.9999967668407183.
 
@@ -1106,15 +1106,15 @@ t=math;language=dflt;"
 (fontspec)             =0pt\relax \fontdimen 21\font =0pt\relax 
 
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `normal' on input line 208.
+(Font)              `symbols' in the math version `normal' on input line 210.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
 (Font)                  OMS/lmsy/m/n --> TU/latinmodern-math.otf(2)/m/n on inpu
-t line 208.
+t line 210.
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `bold' on input line 208.
+(Font)              `symbols' in the math version `bold' on input line 210.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
 (Font)                  OMS/lmsy/b/n --> TU/latinmodern-math.otf(2)/b/n on inpu
-t line 208.
+t line 210.
 
 Package fontspec Info: latinmodern-math scale = 0.9999967668407183.
 
@@ -1184,17 +1184,17 @@ pt=math;language=dflt;"
 
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
 (Font)              `largesymbols' in the math version `normal' on input line 2
-08.
+10.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/m/n on inpu
-t line 208.
+t line 210.
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
-(Font)              `largesymbols' in the math version `bold' on input line 208
+(Font)              `largesymbols' in the math version `bold' on input line 210
 .
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/b/n on inpu
-t line 208.
-LaTeX Info: Redefining \microtypecontext on input line 208.
+t line 210.
+LaTeX Info: Redefining \microtypecontext on input line 210.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: No adjustment of tracking.
@@ -1210,7 +1210,7 @@ Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box84
-Package hyperref Info: Link coloring ON on input line 208.
+Package hyperref Info: Link coloring ON on input line 210.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 (/usr/local/texlive/2020/texmf-dist/tex/latex/refcount/refcount.sty
@@ -1222,9 +1222,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count334
 )
-LaTeX Info: Redefining \ref on input line 208.
-LaTeX Info: Redefining \pageref on input line 208.
-LaTeX Info: Redefining \nameref on input line 208.
+LaTeX Info: Redefining \ref on input line 210.
+LaTeX Info: Redefining \pageref on input line 210.
+LaTeX Info: Redefining \nameref on input line 210.
 
 Package hyperref Warning: Rerun to get /PageLabels entry.
 
@@ -1238,6 +1238,63 @@ Missing character: There is no 団 in font [lmsans10-bold]:mapping=tex-text;!
 Missing character: There is no と in font [lmsans10-bold]:mapping=tex-text;!
 Missing character: There is no 標 in font [lmsans10-bold]:mapping=tex-text;!
 Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text;!
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 14.4pt on input line 212.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 10.0pt on input line 212.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 7.0pt on input line 212.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 2
+12.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 14.4013pt on input line 212.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 10.00092pt on input line 212.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 7.00064pt on input line 212.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 14.39845pt on input line 212.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 9.99893pt on input line 212.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 6.99925pt on input line 212.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 212
+.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 212
+.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+) [1
+
+
+
+]
+chapter without number
+
+Class scrreprt Warning: \float@addtolists detected!
+(scrreprt)              Implementation of \float@addtolist became
+(scrreprt)              deprecated in KOMA-Script v3.01 2008/11/14 and
+(scrreprt)              has been replaced by several more flexible
+(scrreprt)              features of package `tocbasic`.
+(scrreprt)              Since Version 3.12 support for deprecated
+(scrreprt)              \float@addtolist interface has been
+(scrreprt)              restricted to only some of the KOMA-Script
+(scrreprt)              features and been removed from others.
+(scrreprt)              Loading of package `scrhack' may help to
+(scrreprt)              avoid this warning, if you are using a
+(scrreprt)              a package that still implements the
+(scrreprt)              deprecated \float@addtolist interface .
+
 Missing character: There is no は in font [lmsans10-bold]:mapping=tex-text;!
 Missing character: There is no じ in font [lmsans10-bold]:mapping=tex-text;!
 Missing character: There is no め in font [lmsans10-bold]:mapping=tex-text;!
@@ -1624,6 +1681,13 @@ Missing character: There is no い in font [lmroman10-regular]:mapping=tex-text;
 Missing character: There is no ま in font [lmroman10-regular]:mapping=tex-text;!
 Missing character: There is no す in font [lmroman10-regular]:mapping=tex-text;!
 Missing character: There is no 。 in font [lmroman10-regular]:mapping=tex-text;!
+File: images/Untitled-01.png Graphic file (type bmp)
+<images/Untitled-01.png>
+
+Overfull \hbox (10.93675pt too wide) in paragraph at lines 247--248
+[][] 
+ []
+
 Missing character: There is no 特 in font [lmroman10-regular]:mapping=tex-text;!
 Missing character: There is no に in font [lmroman10-regular]:mapping=tex-text;!
 Missing character: There is no 経 in font [lmroman10-regular]:mapping=tex-text;!
@@ -1888,6 +1952,10 @@ Missing character: There is no い in font [lmroman10-regular]:mapping=tex-text;
 Missing character: There is no ま in font [lmroman10-regular]:mapping=tex-text;!
 Missing character: There is no す in font [lmroman10-regular]:mapping=tex-text;!
 Missing character: There is no 。 in font [lmroman10-regular]:mapping=tex-text;!
+[2
+
+] [3]
+chapter without number
 Missing character: There is no 平 in font [lmsans10-bold]:mapping=tex-text;!
 Missing character: There is no 均 in font [lmsans10-bold]:mapping=tex-text;!
 Missing character: There is no と in font [lmsans10-bold]:mapping=tex-text;!
@@ -1925,40 +1993,21 @@ Missing character: There is no 。 in font [lmroman10-regular]:mapping=tex-text;
 Missing character: There is no 変 in font [lmroman10-regular]:mapping=tex-text;!
 Missing character: There is no 数 in font [lmroman10-regular]:mapping=tex-text;!
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.665pt on input line 270.
+(Font)              scaled to size 7.665pt on input line 272.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.475pt on input line 270.
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 2
-70.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
+(Font)              scaled to size 5.475pt on input line 272.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.95099pt on input line 270.
+(Font)              scaled to size 10.95099pt on input line 272.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.66568pt on input line 270.
+(Font)              scaled to size 7.66568pt on input line 272.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.4755pt on input line 270.
+(Font)              scaled to size 5.4755pt on input line 272.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.94882pt on input line 270.
+(Font)              scaled to size 10.94882pt on input line 272.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.66417pt on input line 270.
+(Font)              scaled to size 7.66417pt on input line 272.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.47441pt on input line 270.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 270
-.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msa.cfg
-File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 270
-.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msb.cfg
-File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
+(Font)              scaled to size 5.47441pt on input line 272.
 Missing character: There is no の in font [lmroman10-regular]:mapping=tex-text;!
 Missing character: There is no 平 in font [lmroman10-regular]:mapping=tex-text;!
 Missing character: There is no 均 in font [lmroman10-regular]:mapping=tex-text;!
@@ -2106,9 +2155,10 @@ Missing character: There is no め in font [lmroman10-regular]:mapping=tex-text;
 Missing character: There is no で in font [lmroman10-regular]:mapping=tex-text;!
 Missing character: There is no す in font [lmroman10-regular]:mapping=tex-text;!
 Missing character: There is no 。 in font [lmroman10-regular]:mapping=tex-text;!
-[1
+[4
 
 ]
+chapter without number
 Missing character: There is no 標 in font [lmsans10-bold]:mapping=tex-text;!
 Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text;!
 Missing character: There is no 平 in font [lmsans10-bold]:mapping=tex-text;!
@@ -2243,15 +2293,15 @@ Missing character: There is no 。 in font [lmroman10-regular]:mapping=tex-text;
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.320 ...\mu, Var(\bar X) = \frac{1}{n}\sigma^2\]]
+l.322 ...\mu, Var(\bar X) = \frac{1}{n}\sigma^2\]]
                                                    
 Here is how much of TeX's memory you used:
- 37551 strings out of 479418
- 742780 string characters out of 5884585
- 1314020 words of memory out of 5000000
- 54538 multiletter control sequences out of 15000+600000
- 535849 words of font info for 53 fonts, out of 8000000 for 9000
+ 37610 strings out of 479418
+ 744546 string characters out of 5884585
+ 1312105 words of memory out of 5000000
+ 54580 multiletter control sequences out of 15000+600000
+ 538753 words of font info for 72 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 63i,15n,118p,10103b,913s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,15n,118p,10103b,908s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on 6_hyohon.pdf (1 page).
+Output written on 6_hyohon.pdf (4 pages).

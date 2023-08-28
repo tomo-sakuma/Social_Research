@@ -1,0 +1,6 @@
+---
+title: "授業"
+listing:
+  type: table
+  fields: [date, title]
+---
