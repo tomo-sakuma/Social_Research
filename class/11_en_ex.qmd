@@ -1,5 +1,5 @@
 ---
-title: "11 内省変数・外生変数と因果推論"
+title: "11 内生変数・外生変数と因果推論"
 ---
 
 ## 外生変数と内生変数
@@ -151,18 +151,6 @@ $$ {#eq-7-8}
 
 となり，$\beta_2\mathrm{Cov}({X_1X_2})/\mathrm{Var}({X_1})$分のバイアスがかかります。このバイアスは，$\mathrm{Cov}({X_1X_2})=0$でない限り存在します[^1]。これは，疑似相関の際に起こるバイアスを表しています。
 
-[^1]: 推定するモデル @eq-7-7 に，正しいモデルを代入すると，
-
-    $$
-    \begin{split}\hat\gamma_1&=\frac{S_{X_1Y}}{S_{X_1X_1}} = \frac{\sum (X_{1i}-\bar X_{1})(Y_i-\bar Y)}{ \sum (X_{1i}-\bar X_1)^2}\\&=\sum w_{X_{1i}}Y_i \\&=\sum w_{X_{1i}}(\beta_0+\beta_1X_{1i}+\beta_2X_{2i}+\epsilon_i)\\&=\beta_1+\beta_2\frac{S_{X_1X_2}}{S_{X_1X_1}}+\sum w_{X_{1i}}\epsilon_i\end{split}
-    $$
-
-    これの期待値を取ると，上の式 @eq-7-8 になります。ただし，
-
-    -   $S_{X_{1}Y} = \mathrm{Cov}(X_{1i}Y_i)=\sum (X_{1i}-\bar X)(Y_i-\bar Y)$
-    -   $S_{X_iX_i} = \mathrm{Var}(X_1) = \sum (X_{1i}-\bar X)^2$
-    -   $w_{X_{1i}}=({X_{1i} - \bar X) / \sum(X_{1i}- \bar X)}$
-
 ![](images/Untitled%203-01.png){fig-align="center"}
 
 ![](images/Untitled%204-01.png){fig-align="center"}
@@ -277,6 +265,100 @@ $$
 $$
 
 となり$\gamma_1 \not=0$となる限り0にはならず外生性は満たされません。
+
+
+今回使うのは，以前課題で使った
+
+```{r}
+#| message: false
+#| warning: false
+#| output: false
+
+rm(list=ls()); gc();  gc(); 
+if (!require("pacman")) install.packages("pacman") 
+pacman::p_load(tidyverse, magrittr,estimatr,car,modelsummary,ggrepel,patchwork,ppcor,qgraph) 
+
+```
+
+## 例
+
+データの読み込み
+
+```{r,message=FALSE}
+
+kadai_8th <- read_csv("data/kadai_8th.csv")
+
+kadai_8th %$% 
+  lm(exam ~ gpa) -> reg1
+
+kadai_8th %$% 
+  lm(exam ~ hschool) -> reg2
+
+
+kadai_8th %$% 
+  lm(exam ~ gpa + hschool) -> reg3
+
+regs <-list(reg1, reg2, reg3)
+modelsummary(regs,
+             stars = TRUE,
+             gof_omit = "Log.Lik.|AIC|BIC",)
+```
+
+これは，最高気温が客数と有意ににプラスの関係にある一方で，最低気温と客数に関係が見られない，ということを示唆しています。
+
+関連して，普通の相関係数を求めてみる。データのうち，通し番号(`Num`)は必要ないので，`dplyr::select()`コマンドで，使う変数(`saikou, saitei, kyaku`)だけを選択し，そのあと`cor()`関数を使う。
+
+```{r}
+
+kadai_8th %>% 
+  cor() -> cor5_1
+
+cor5_1
+
+
+```
+
+客数と最低気温に正の相関があることを確認する。次に，偏相関係数を求めてみる。これは，`ppcor`パッケージのpcorで求められる。その他の部分は同じ。
+
+```{r}
+
+kadai_8th %>% 
+  pcor() -> pcor5_1
+
+pcor5_1$estimate
+```
+
+客数と最低気温は，最高気温を調整したら負の相関に変わった。ついでに相関関係を図にしてみる。`qgraph`パッケージの`qgraph()`コマンドを使う。
+
+```{r}
+
+par(family="Osaka") #<1>
+qgraph(cor5_1,
+       title="相関",
+       edge.labels=TRUE,
+       labels = colnames(cor5_1)
+       )
+
+
+```
+
+1.  日本語表示が可能なフォントを指定
+
+偏相関も同様にできる
+
+```{r}
+
+par(family="Osaka")
+qgraph(pcor5_1$estimate,
+       title="偏相関",
+       edge.labels=TRUE,
+       labels = colnames(pcor5_1$estimate)
+       )
+
+
+```
+
+
 
 ## 内生性を見抜くためには？
 
@@ -405,9 +487,21 @@ $$
 
 $\beta_2\frac{S_{AL}}{S_{AA}}$の部分がLを入れなかったことによって生じる推定値のずれ（バイアス）[^2]
 
+$S_{AL}=0$でない限り不偏性が保たれないので，間違った推定値が計算される。一致性もない。
+
+[^1]: 推定するモデル @eq-7-7 に，正しいモデルを代入すると，
+
+    $$
+    \begin{split}\hat\gamma_1&=\frac{S_{X_1Y}}{S_{X_1X_1}} = \frac{\sum (X_{1i}-\bar X_{1})(Y_i-\bar Y)}{ \sum (X_{1i}-\bar X_1)^2}\\&=\sum w_{X_{1i}}Y_i \\&=\sum w_{X_{1i}}(\beta_0+\beta_1X_{1i}+\beta_2X_{2i}+\epsilon_i)\\&=\beta_1+\beta_2\frac{S_{X_1X_2}}{S_{X_1X_1}}+\sum w_{X_{1i}}\epsilon_i\end{split}
+    $$
+
+    これの期待値を取ると，上の式 @eq-7-8 になります。ただし，
+
+    -   $S_{X_{1}Y} = \mathrm{Cov}(X_{1i}Y_i)=\sum (X_{1i}-\bar X)(Y_i-\bar Y)$
+    -   $S_{X_iX_i} = \mathrm{Var}(X_1) = \sum (X_{1i}-\bar X)^2$
+    -   $w_{X_{1i}}=({X_{1i} - \bar X) / \sum(X_{1i}- \bar X)}$
+
 [^2]:
     -   $S_{AY} = \sum (A_i-\bar A)(Y_i-\bar Y)$
     -   $S_{AA} = \sum (A_i-\bar A)^2$
     -   $w_{Ai}=\frac{A_i - \bar A}{\sum(A_i - \bar A)}$
-
-$S_{AL}=0$でない限り不偏性が保たれないので，間違った推定値が計算される。一致性もない。

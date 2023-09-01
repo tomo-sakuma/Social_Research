@@ -1,5 +1,155 @@
 ---
 title: "9 重回帰分析"
+date: 2023/11/27
 ---
 
 # 前回やったこと：回帰分析
+
+-   回帰分析では，2つの変数間の関係を線形関係（$y = \beta_0 + \beta_1x$という形）にモデル化して推定しました。
+-   しかし，ある現象（例えば前回の例だったアイスクリーム屋さんの客数）が，1つの要因（気温）によって決まるということは稀です。
+    -   曜日，天気，価格...
+-   どれが最も重要なのかを知るために，例えば
+    -   $\text{客数} = \alpha_0 + \alpha_1 \text{気温} + u_1$
+    -   $\text{客数} = \gamma_0 + \gamma_1 \text{価格} + u_2$
+-   みたいな形で別々に客数との関係を推定するのはあまり効率的ではありません。そこで使われるのが重回帰分析です。
+
+# 重回帰分析
+
+## 概要
+
+-   重回帰分析では，以下のように複数の独立変数を一つの式に含めます。
+
+$$
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + u
+$$ {#eq-9-1}
+
+-   これは図のように2つの独立変数が従属変数に与える影響を表しています。
+
+![](images/9_1.png)
+
+-   このように複数の要因を一度に分析するものを重回帰分析と言います（独立変数が一つの回帰分析を単回帰分析と言います）
+
+## 重回帰分析の良いところ
+
+### 他の要因を一定とした場合の関係を推定できる
+
+-   重回帰分析は，単回帰分析を複数行うこととは違い，「他の要因をコントロールした」係数を推定できる点が特徴です。
+    -   その他の要因を一定としたとき，ある独立変数が従属変数とどのように関係しているかがわかる
+        -   上記の例の場合，価格の係数は「気温を一定としたとき，価格は客数とどのように関係しているか」が分かる
+
+### 欠落変数バイアスの除去
+
+-   独立変数，従属変数両方に関係する要因を含めずに回帰分析をすることで欠落変数バイアスが生じる
+    -   回帰分析の仮定が満たされず，推定結果がゆがむ
+-   その要因を独立変数として回帰モデルに含めると，バイアスが除去される
+
+# 欠落変数バイアスの問題
+
+今回使うのは，以前課題で使った
+
+```{r}
+#| message: false
+#| warning: false
+#| output: false
+
+rm(list=ls()); gc();  gc(); 
+if (!require("pacman")) install.packages("pacman") 
+pacman::p_load(tidyverse, magrittr,estimatr,car,modelsummary,ggrepel,patchwork,ppcor,qgraph) 
+
+```
+
+## 5-1
+
+データの読み込み
+
+```{r,message=FALSE}
+
+
+ice5_1 <- read_csv("data/ice5_1.csv")
+
+
+ice5_1
+
+ice5_1 %$% 
+  lm(kyaku ~ saikou) -> reg1
+
+ice5_1 %$% 
+  lm(kyaku ~ saitei) -> reg2
+
+regs <-list(reg1, reg2)
+modelsummary(regs,
+             stars = TRUE,
+             gof_omit = "Log.Lik.|AIC|BIC",)
+```
+
+これは，最高気温が客数と有意ににプラスの関係にある一方で，最低気温と客数に関係が見られない，ということを示唆しています。
+
+関連して，普通の相関係数を求めてみる。データのうち，通し番号(`Num`)は必要ないので，`dplyr::select()`コマンドで，使う変数(`saikou, saitei, kyaku`)だけを選択し，そのあと`cor()`関数を使う。
+
+```{r}
+
+ice5_1 %>% 
+  dplyr::select(., saikou, saitei, kyaku) %>% 
+  cor() -> cor5_1
+
+cor5_1
+
+```
+
+客数と最低気温に正の相関があることを確認する。次に，偏相関係数を求めてみる。これは，`ppcor`パッケージのpcorで求められる。その他の部分は同じ。
+
+```{r}
+
+ice5_1 %>% 
+  dplyr::select(., saikou, saitei, kyaku) %>% 
+  pcor() -> pcor5_1
+
+pcor5_1$estimate
+```
+
+客数と最低気温は，最高気温を調整したら負の相関に変わった。ついでに相関関係を図にしてみる。`qgraph`パッケージの`qgraph()`コマンドを使う。
+
+```{r}
+
+par(family="Osaka") #<1>
+qgraph(cor5_1,
+       title="相関",
+       edge.labels=TRUE,
+       labels = colnames(cor5_1)
+       )
+
+
+```
+
+1.  日本語表示が可能なフォントを指定
+
+偏相関も同様にできる
+
+```{r}
+
+par(family="Osaka")
+qgraph(pcor5_1$estimate,
+       title="偏相関",
+       edge.labels=TRUE,
+       labels = colnames(pcor5_1$estimate)
+       )
+
+
+```
+
+## 通過テスト
+
+```{r}
+
+ice5_9 <- read_csv("data/kadai_8.csv")
+
+
+ice5_9 %>% 
+  dplyr::select(., -student) %>% 
+  cor()
+
+
+ice5_9 %>% 
+  dplyr::select(., -student) %>% 
+  pcor()
+```

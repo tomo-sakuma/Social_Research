@@ -32,7 +32,6 @@ website:
       - about.qmd
       - href: class/index.qmd
         text: Class
-    date: today
 
 bibliography: references.bib
 csl: https://www.zotero.org/styles/the-accounting-review
@@ -54,6 +53,8 @@ format:
     code-fold: show
     df-print: paged
     code-annotations: hover
+    date-format: YYYY/MM/DD
+    
 
 
 
